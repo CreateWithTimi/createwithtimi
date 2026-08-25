@@ -1,27 +1,20 @@
-import { NavLink, Outlet } from 'react-router-dom';
-import { siteNavigation } from '../content/site.js';
+import { Outlet } from 'react-router-dom';
+import SiteFooter from '../components/layout/SiteFooter.jsx';
+import SiteHeader from '../components/layout/SiteHeader.jsx';
+import RouteMetadata from '../components/meta/RouteMetadata.jsx';
 
 export default function AppLayout() {
   return (
     <div className="site-shell">
+      <RouteMetadata />
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <header className="site-header" aria-label="Site header">
-        <NavLink className="site-mark wordmark-compact" to="/" aria-label="CreateWithTimi Studio home">
-          CWT
-        </NavLink>
-        <nav className="site-nav" aria-label="Primary navigation">
-          {siteNavigation.map((item) => (
-            <NavLink key={item.href} to={item.href}>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-      </header>
+      <SiteHeader />
       <main id="main-content" className="site-main">
         <Outlet />
       </main>
+      <SiteFooter />
     </div>
   );
 }

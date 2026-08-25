@@ -1,11 +1,20 @@
 export const siteNavigation = [
   {
     label: 'Work',
-    href: '/work/rangers-legends',
+    href: '/#work',
+    sectionId: 'work',
+    kind: 'section',
+  },
+  {
+    label: 'How We Work',
+    href: '/#how-we-work',
+    sectionId: 'how-we-work',
+    kind: 'section',
   },
   {
     label: 'Start a Project',
     href: '/start-a-project',
+    kind: 'route',
   },
 ];
 
@@ -13,4 +22,21 @@ export const siteMeta = {
   name: 'CreateWithTimi Studio',
   description:
     'CreateWithTimi is an independent creative-technology studio building worlds around stories people care about.',
+};
+
+export const routeMetadata = {
+  '/': {
+    title: 'CreateWithTimi Studio',
+    description: siteMeta.description,
+  },
+  '/work/rangers-legends': {
+    title: 'Rangers Legends Case Study | CreateWithTimi Studio',
+    description:
+      'A CreateWithTimi concept case study exploring how one story can become a connected world.',
+  },
+  '/start-a-project': {
+    title: 'Start a Project | CreateWithTimi Studio',
+    description:
+      'Begin a conversation with CreateWithTimi about a story, brand, culture, archive, or IP worth developing.',
+  },
 };
