@@ -28,6 +28,31 @@ npm run build
 npm run preview
 ```
 
+## Project Inquiry Delivery
+
+The `/start-a-project` inquiry form uses Formspree as the temporary V1 delivery provider.
+
+- Provider: Formspree
+- Form: `CWT Project Inquiries`
+- Endpoint: `https://formspree.io/f/mwlegrkd`
+- Recipient: `createwithtimi@gmail.com`
+- No secret key is required in the browser for this Formspree setup.
+
+Local setup:
+
+1. Run `npm run dev`.
+2. Submit a test inquiry through `/start-a-project`.
+3. Confirm receipt in Formspree and at `createwithtimi@gmail.com`.
+
+Vercel setup:
+
+1. Deploy the current V1 build.
+2. Submit a test inquiry through `/start-a-project`.
+3. Confirm receipt in Formspree and at `createwithtimi@gmail.com`.
+4. Confirm replying to the Formspree email targets the submitted email address if reply behavior is configured.
+
+Formspree is the V1 delivery provider and may later be replaced by CWT-owned domain/email infrastructure.
+
 ## Source Structure
 
 ```text

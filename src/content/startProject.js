@@ -1,4 +1,10 @@
 export const startProject = {
+  delivery: {
+    provider: 'Formspree',
+    form: 'CWT Project Inquiries',
+    endpoint: 'https://formspree.io/f/mwlegrkd',
+    recipient: 'createwithtimi@gmail.com',
+  },
   hero: {
     eyebrow: 'Start a Project / 001',
     title: ['Have a story?', "Let's find the", 'world inside it.'],
@@ -89,8 +95,17 @@ export const startProject = {
   submit: {
     title: ["Let's build", 'the world.'],
     action: 'Send project',
-    pending:
-      'Submission integration is not connected yet. Your project details have not been sent.',
-    note: 'Form submission infrastructure is pending; this page is ready for experience review.',
+    submitting: 'Sending project...',
+    success: {
+      eyebrow: 'Project received.',
+      title: ['The first step', 'is done.', "Now let's see", 'where this', 'could go.'],
+      body: "Thanks for sharing your project with CreateWithTimi. We'll review what you've sent and continue the conversation by email.",
+      cta: 'View our work',
+      href: '/#work',
+    },
+    error: {
+      title: "We couldn't send that yet.",
+      body: 'Your project details are still here. Please try again.',
+    },
   },
 };

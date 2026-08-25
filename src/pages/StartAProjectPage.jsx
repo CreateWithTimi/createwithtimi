@@ -1,5 +1,8 @@
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { startProject } from '../content/startProject.js';
+
+const formspreeEndpoint = startProject.delivery.endpoint;
 
 const initialFormState = {
   around: '',
@@ -52,6 +55,23 @@ function validateForm(formState) {
   return nextErrors;
 }
 
+function buildInquiryPayload(formState, honeypotValue) {
+  return {
+    'What are we building around?': formState.around,
+    'What are you bringing?': formState.bringing,
+    'Where could it go?': formState.destinations.join(', '),
+    'Your name': formState.name.trim(),
+    'Email address': formState.email.trim(),
+    'Organization / brand': formState.organization.trim() || 'Not provided',
+    'Tell us about your project': formState.description.trim(),
+    'Project timeline': formState.timeline || 'Not provided',
+    'Budget context': formState.budget || 'Not provided',
+    email: formState.email.trim(),
+    _replyto: formState.email.trim(),
+    _gotcha: honeypotValue,
+  };
+}
+
 function Arrow() {
   return <span aria-hidden="true">↗</span>;
 }
@@ -92,15 +112,20 @@ function OptionControl({ option, type, name, checked, onChange, required = false
 export default function StartAProjectPage() {
   const [formState, setFormState] = useState(initialFormState);
   const [errors, setErrors] = useState({});
-  const [submitMessage, setSubmitMessage] = useState('');
+  const [submitStatus, setSubmitStatus] = useState('idle');
+  const [submitError, setSubmitError] = useState('');
   const errorSummaryRef = useRef(null);
+  const honeypotRef = useRef(null);
+  const submitMessageRef = useRef(null);
+  const successRef = useRef(null);
 
   const updateField = (field, value) => {
     setFormState((current) => ({
       ...current,
       [field]: value,
     }));
-    setSubmitMessage('');
+    setSubmitStatus((currentStatus) => (currentStatus === 'error' ? 'idle' : currentStatus));
+    setSubmitError('');
   };
 
   const toggleDestination = (value) => {
@@ -114,23 +139,80 @@ export default function StartAProjectPage() {
           : [...current.destinations, value],
       };
     });
-    setSubmitMessage('');
+    setSubmitStatus((currentStatus) => (currentStatus === 'error' ? 'idle' : currentStatus));
+    setSubmitError('');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (submitStatus === 'submitting' || submitStatus === 'success') {
+      return;
+    }
 
     const nextErrors = validateForm(formState);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
-      setSubmitMessage('');
+      setSubmitStatus('idle');
+      setSubmitError('');
       window.requestAnimationFrame(() => errorSummaryRef.current?.focus());
       return;
     }
 
-    setSubmitMessage(startProject.submit.pending);
+    setSubmitStatus('submitting');
+    setSubmitError('');
+
+    try {
+      const response = await fetch(formspreeEndpoint, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(buildInquiryPayload(formState, honeypotRef.current?.value || '')),
+      });
+
+      if (!response.ok) {
+        throw new Error('Formspree rejected the inquiry.');
+      }
+
+      setSubmitStatus('success');
+      window.requestAnimationFrame(() => successRef.current?.focus());
+    } catch {
+      setSubmitStatus('error');
+      setSubmitError(startProject.submit.error.body);
+      window.requestAnimationFrame(() => submitMessageRef.current?.focus());
+    }
   };
+
+  if (submitStatus === 'success') {
+    return (
+      <article className="start-project-page">
+        <section
+          className="project-success site-section--loose"
+          aria-labelledby="project-success-title"
+          tabIndex="-1"
+          ref={successRef}
+        >
+          <div className="container-wide editorial-grid project-success__grid">
+            <p className="text-label section-kicker">{startProject.submit.success.eyebrow}</p>
+            <div className="project-success__message">
+              <h1 id="project-success-title">
+                {startProject.submit.success.title.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </h1>
+              <p className="text-body-lg">{startProject.submit.success.body}</p>
+              <Link className="text-link" to={startProject.submit.success.href}>
+                {startProject.submit.success.cta} <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </article>
+    );
+  }
 
   return (
     <article className="start-project-page">
@@ -159,6 +241,18 @@ export default function StartAProjectPage() {
           </div>
 
           <form className="project-form" noValidate onSubmit={handleSubmit}>
+            <div className="project-honeypot" aria-hidden="true">
+              <label htmlFor="project-company-website">Company website</label>
+              <input
+                id="project-company-website"
+                ref={honeypotRef}
+                type="text"
+                name="_gotcha"
+                tabIndex="-1"
+                autoComplete="off"
+              />
+            </div>
+
             {Object.keys(errors).length > 0 ? (
               <div className="project-error-summary" ref={errorSummaryRef} tabIndex="-1" role="alert">
                 <p className="text-label">Before sending</p>
@@ -374,14 +468,35 @@ export default function StartAProjectPage() {
                       <span key={line}>{line}</span>
                     ))}
                   </p>
-                  <button className="project-submit__button" type="submit">
-                    {startProject.submit.action} <Arrow />
+                  <button
+                    className="project-submit__button"
+                    type="submit"
+                    disabled={submitStatus === 'submitting'}
+                  >
+                    {submitStatus === 'submitting' ? startProject.submit.submitting : startProject.submit.action}
+                    {submitStatus === 'submitting' ? null : (
+                      <>
+                        {' '}
+                        <Arrow />
+                      </>
+                    )}
                   </button>
-                  <p className="project-submit__note">{startProject.submit.note}</p>
-                  {submitMessage ? (
-                    <p className="project-submit__pending" role="status">
-                      {submitMessage}
-                    </p>
+                  <p className="project-submit__note">
+                    Inquiries are delivered through Formspree for V1.
+                  </p>
+                  <p className="visually-hidden" role="status" aria-live="polite">
+                    {submitStatus === 'submitting' ? startProject.submit.submitting : ''}
+                  </p>
+                  {submitStatus === 'error' ? (
+                    <div
+                      className="project-submit__error"
+                      ref={submitMessageRef}
+                      tabIndex="-1"
+                      role="alert"
+                    >
+                      <p className="text-label">{startProject.submit.error.title}</p>
+                      <p>{submitError}</p>
+                    </div>
                   ) : null}
                 </div>
               </section>
