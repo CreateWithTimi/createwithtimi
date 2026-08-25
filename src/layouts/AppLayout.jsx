@@ -1,9 +1,31 @@
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import SiteFooter from '../components/layout/SiteFooter.jsx';
 import SiteHeader from '../components/layout/SiteHeader.jsx';
 import RouteMetadata from '../components/meta/RouteMetadata.jsx';
 
 export default function AppLayout() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) {
+      return undefined;
+    }
+
+    const targetId = decodeURIComponent(location.hash.slice(1));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const frame = window.requestAnimationFrame(() => {
+      const target = document.getElementById(targetId);
+
+      target?.scrollIntoView({
+        block: 'start',
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash]);
+
   return (
     <div className="site-shell">
       <RouteMetadata />

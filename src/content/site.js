@@ -37,6 +37,6 @@ export const routeMetadata = {
   '/start-a-project': {
     title: 'Start a Project | CreateWithTimi Studio',
     description:
-      'Begin a conversation with CreateWithTimi about a story, brand, culture, archive, or IP worth developing.',
+      'Begin a thoughtful project inquiry with CreateWithTimi around a story, brand, community, culture, character, or idea worth building around.',
   },
 };
