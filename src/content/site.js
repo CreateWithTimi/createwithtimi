@@ -30,9 +30,9 @@ export const routeMetadata = {
     description: siteMeta.description,
   },
   '/work/rangers-legends': {
-    title: 'Rangers Legends Case Study | CreateWithTimi Studio',
+    title: 'Rangers Legends | CreateWithTimi Case Study',
     description:
-      'A CreateWithTimi concept case study exploring how one story can become a connected world.',
+      'A CreateWithTimi concept case study on turning one football heritage story into a connected story world.',
   },
   '/start-a-project': {
     title: 'Start a Project | CreateWithTimi Studio',
