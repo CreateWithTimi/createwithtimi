@@ -9,7 +9,13 @@ const normalizeSiteUrl = (value) => {
     return '';
   }
 
-  return value.replace(/\/+$/, '');
+  const trimmedValue = value.trim().replace(/\/+$/, '');
+
+  if (/^https?:\/\//i.test(trimmedValue)) {
+    return trimmedValue;
+  }
+
+  return `https://${trimmedValue}`;
 };
 
 const createMetadataPlugin = (siteUrl) => ({
