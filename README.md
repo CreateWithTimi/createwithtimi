@@ -53,6 +53,45 @@ Vercel setup:
 
 Formspree is the V1 delivery provider and may later be replaced by CWT-owned domain/email infrastructure.
 
+## SEO and Shareability
+
+The site uses lightweight route-aware metadata for title, description, robots, canonical URLs, Open Graph, and Twitter/X summary-card previews.
+
+- Default title: `CreateWithTimi — We Build Worlds Around Stories People Care About`
+- Social preview asset: `public/cwt-social-preview.png`
+- Source/reference preview asset: `docs/visual-reference/cwt-social-preview.jpg`
+- Required production origin variable: `VITE_SITE_URL`
+
+Local setup:
+
+1. Copy `.env.example` to `.env` if you need local production-origin testing.
+2. Set `VITE_SITE_URL` to the deployment origin when testing absolute canonical and social URLs.
+3. Leave `VITE_SITE_URL` empty for ordinary local development.
+
+Vercel setup:
+
+1. Add `VITE_SITE_URL` in the Vercel project environment variables once the production origin is confirmed.
+2. Use the final deployed origin, for example `https://your-production-origin`, without a trailing slash.
+3. Rebuild after setting or changing the value.
+
+Canonical behavior:
+
+- Known public routes receive canonical URLs only when `VITE_SITE_URL` is available.
+- Unknown/404 routes are marked `noindex, follow` and do not receive a canonical URL.
+
+Sitemap and robots behavior:
+
+- `robots.txt` allows normal crawling.
+- `sitemap.xml` is generated during production builds only when `VITE_SITE_URL` is set.
+- The sitemap includes only `/`, `/work/rangers-legends`, and `/start-a-project`.
+
+Post-deploy preview validation:
+
+- Test share cards on WhatsApp, X, LinkedIn, and Discord.
+- Confirm the image, title, description, canonical URL, `og:url`, and absolute social-image URL.
+
+Favicon status: pending until an approved standalone favicon or identity asset exists.
+
 ## Source Structure
 
 ```text

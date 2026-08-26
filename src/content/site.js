@@ -18,25 +18,55 @@ export const siteNavigation = [
   },
 ];
 
+const normalizeSiteUrl = (value) => {
+  if (!value) {
+    return '';
+  }
+
+  return value.replace(/\/+$/, '');
+};
+
+const socialImagePath = '/cwt-social-preview.png';
+const siteUrl = normalizeSiteUrl(import.meta.env.VITE_SITE_URL);
+
+export const publicRoutes = ['/', '/work/rangers-legends', '/start-a-project'];
+
+export const getAbsoluteUrl = (path = '/') => {
+  if (!siteUrl) {
+    return '';
+  }
+
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  return `${siteUrl}${normalizedPath}`;
+};
+
 export const siteMeta = {
-  name: 'CreateWithTimi Studio',
+  name: 'CreateWithTimi',
+  title: 'CreateWithTimi — We Build Worlds Around Stories People Care About',
   description:
-    'CreateWithTimi is an independent creative-technology studio building worlds around stories people care about.',
+    'CreateWithTimi is a creative-technology studio turning stories, brands and cultural IP into connected digital and physical experiences.',
+  socialImagePath,
+  socialImageAlt:
+    'CreateWithTimi social preview artwork with the studio positioning: We build worlds around stories people care about.',
+  siteUrl,
 };
 
 export const routeMetadata = {
   '/': {
-    title: 'CreateWithTimi Studio',
+    title: siteMeta.title,
     description: siteMeta.description,
+    robots: 'index, follow',
   },
   '/work/rangers-legends': {
-    title: 'Rangers Legends | CreateWithTimi Case Study',
+    title: 'Rangers Legends Case Study — CreateWithTimi',
     description:
-      'A CreateWithTimi concept case study on turning one football heritage story into a connected story world.',
+      'A CreateWithTimi concept exploration showing how one football heritage story can become a connected story world across digital and physical experiences.',
+    robots: 'index, follow',
   },
   '/start-a-project': {
-    title: 'Start a Project | CreateWithTimi Studio',
+    title: 'Start a Project — CreateWithTimi',
     description:
-      'Begin a thoughtful project inquiry with CreateWithTimi around a story, brand, community, culture, character, or idea worth building around.',
+      'Start a focused project inquiry with CreateWithTimi around a story, brand, community, character, culture or idea worth building around.',
+    robots: 'index, follow',
   },
 };
