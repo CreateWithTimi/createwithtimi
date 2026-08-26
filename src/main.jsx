@@ -1,34 +1,59 @@
-import { StrictMode } from 'react';
+import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AppLayout from './layouts/AppLayout.jsx';
-import HomePage from './pages/HomePage.jsx';
-import RangersLegendsCaseStudyPage from './pages/RangersLegendsCaseStudyPage.jsx';
-import StartAProjectPage from './pages/StartAProjectPage.jsx';
-import NotFoundPage from './pages/NotFoundPage.jsx';
 import './styles/global.css';
+
+const HomePage = lazy(() => import('./pages/HomePage.jsx'));
+const RangersLegendsCaseStudyPage = lazy(() => import('./pages/RangersLegendsCaseStudyPage.jsx'));
+const StartAProjectPage = lazy(() => import('./pages/StartAProjectPage.jsx'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
+
+function RouteView({ children }) {
+  return <Suspense fallback={null}>{children}</Suspense>;
+}
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
-    errorElement: <NotFoundPage />,
+    errorElement: (
+      <RouteView>
+        <NotFoundPage />
+      </RouteView>
+    ),
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: (
+          <RouteView>
+            <HomePage />
+          </RouteView>
+        ),
       },
       {
         path: 'work/rangers-legends',
-        element: <RangersLegendsCaseStudyPage />,
+        element: (
+          <RouteView>
+            <RangersLegendsCaseStudyPage />
+          </RouteView>
+        ),
       },
       {
         path: 'start-a-project',
-        element: <StartAProjectPage />,
+        element: (
+          <RouteView>
+            <StartAProjectPage />
+          </RouteView>
+        ),
       },
       {
         path: '*',
-        element: <NotFoundPage />,
+        element: (
+          <RouteView>
+            <NotFoundPage />
+          </RouteView>
+        ),
       },
     ],
   },

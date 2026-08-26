@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import cardBackImage from '../assets/C01 — THE LEGEND-BACK.png';
-import cardFrontImage from '../assets/C01 — THE LEGEND-FRONT.png';
-import teeImage from '../assets/TEE 01.png';
-import collectionHeroImage from '../assets/collection-hero-main.png';
-import comicPageImage from '../assets/comic-page-01.png';
-import graphicChairmanImage from '../assets/graphic-chairman-01.png';
-import interfaceImage from '../assets/rangers-interface-home.png';
+import cardBackImage from '../assets/optimized/c01-the-legend-back-520.jpg';
+import cardFrontImage from '../assets/optimized/c01-the-legend-front-520.jpg';
+import teeImage from '../assets/optimized/tee-01-900.jpg';
+import collectionHeroImage from '../assets/optimized/collection-hero-main-1200.jpg';
+import comicPageImage from '../assets/optimized/comic-page-01-720.jpg';
+import graphicChairmanImage from '../assets/optimized/graphic-chairman-01-900.jpg';
+import interfaceImage from '../assets/optimized/rangers-interface-home-1600.jpg';
 import { rangersLegendsCaseStudy } from '../content/projects/rangersLegends.js';
 
 function ExternalArrow() {
@@ -42,7 +42,7 @@ export default function RangersLegendsCaseStudyPage() {
     <article className="rangers-case story-world">
       <section className="case-hero section-inverse site-section--loose" aria-labelledby="case-title">
         <div className="container-wide editorial-grid case-hero__grid">
-          <div className="case-hero__copy">
+          <div className="case-hero__copy" data-reveal="rise">
             <Link className="text-link case-back-link" to={caseStudy.backLink.href}>
               {caseStudy.backLink.label} <Arrow />
             </Link>
@@ -75,10 +75,13 @@ export default function RangersLegendsCaseStudyPage() {
             </a>
           </div>
 
-          <figure className="case-hero__media">
+          <figure className="case-hero__media" data-reveal="media">
             <img
               src={collectionHeroImage}
               alt="Rangers Legends Collection 001 world board with Christian Chukwu story and related artifacts."
+              width="1200"
+              height="800"
+              decoding="async"
             />
             <figcaption className="text-label">World / Primary object</figcaption>
           </figure>
@@ -133,18 +136,18 @@ export default function RangersLegendsCaseStudyPage() {
             </h2>
           </div>
 
-          <ol className="case-ladder" aria-label="Story to world expansion">
+          <ol className="case-ladder" aria-label="Story to world expansion" data-reveal="stagger">
             {caseStudy.expansion.stages.map((stage) => (
-              <li key={stage.label}>
+              <li data-reveal-item key={stage.label}>
                 <p className="text-label">{stage.label}</p>
                 <h3>{stage.title}</h3>
               </li>
             ))}
           </ol>
 
-          <ul className="case-experience-strip" aria-label="Experience expressions">
+          <ul className="case-experience-strip" aria-label="Experience expressions" data-reveal="stagger">
             {caseStudy.expansion.experiences.map((item) => (
-              <li key={item.verb}>
+              <li data-reveal-item key={item.verb}>
                 <span className="text-label">{item.verb}</span>
                 <p>{item.medium}</p>
               </li>
@@ -168,7 +171,7 @@ export default function RangersLegendsCaseStudyPage() {
 
         <div className="container-wide experience-list">
           {caseStudy.system.items.map((item) => (
-            <article className={`experience-item experience-item--${item.id}`} key={item.id}>
+            <article className={`experience-item experience-item--${item.id}`} data-reveal="rise" key={item.id}>
               <div className="experience-item__copy">
                 <p className="text-label">{item.label}</p>
                 <h3>{item.title}</h3>
@@ -181,17 +184,32 @@ export default function RangersLegendsCaseStudyPage() {
                     <img
                       src={cardBackImage}
                       alt="Back of the Rangers Legends Christian Chukwu collectible card."
+                      width="396"
+                      height="520"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <img
                       src={cardFrontImage}
                       alt="Front of the Rangers Legends Christian Chukwu collectible card."
+                      width="385"
+                      height="520"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   <figcaption className="text-label">Cards / Front and back</figcaption>
                 </figure>
               ) : (
                 <figure className="experience-item__media">
-                  <img src={mediaByExperience[item.id].src} alt={mediaByExperience[item.id].alt} />
+                  <img
+                    src={mediaByExperience[item.id].src}
+                    alt={mediaByExperience[item.id].alt}
+                    width={item.id === 'explore' ? '1600' : item.id === 'read' ? '480' : item.id === 'share' ? '720' : '900'}
+                    height={item.id === 'explore' ? '852' : item.id === 'read' ? '720' : item.id === 'share' ? '900' : '600'}
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <figcaption className="text-label">{item.label}</figcaption>
                 </figure>
               )}

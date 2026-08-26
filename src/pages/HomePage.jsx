@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import cardBackImage from '../assets/C01 — THE LEGEND-BACK.png';
-import cardFrontImage from '../assets/C01 — THE LEGEND-FRONT.png';
-import interfaceImage from '../assets/rangers-interface-home.png';
-import teeImage from '../assets/TEE 01.png';
-import collectionHeroImage from '../assets/collection-hero-main.png';
-import comicPageImage from '../assets/comic-page-01.png';
+import cardBackImage from '../assets/optimized/c01-the-legend-back-520.jpg';
+import cardFrontImage from '../assets/optimized/c01-the-legend-front-520.jpg';
+import interfaceImage from '../assets/optimized/rangers-interface-home-1200.jpg';
+import teeImage from '../assets/optimized/tee-01-900.jpg';
+import collectionHeroImage from '../assets/optimized/collection-hero-main-1200.jpg';
+import comicPageImage from '../assets/optimized/comic-page-01-720.jpg';
 import {
   audienceOutcomes,
   featuredWorld,
@@ -28,11 +28,11 @@ export default function HomePage() {
     <>
       <section className="home-hero site-section--loose" aria-labelledby="home-hero-title">
         <div className="container-wide editorial-grid home-hero__grid">
-          <div className="home-hero__statement">
+          <div className="home-hero__statement" data-reveal="stagger">
             <p className="text-label section-kicker">{homeHero.eyebrow}</p>
             <h1 id="home-hero-title">
               {homeHero.title.map((line) => (
-                <span key={line}>{line}</span>
+                <span data-reveal-item key={line}>{line}</span>
               ))}
             </h1>
             <p className="home-hero__body text-body-lg">{homeHero.body}</p>
@@ -67,9 +67,9 @@ export default function HomePage() {
             <p className="text-label section-kicker">Story → World → Experience</p>
             <h2 id="story-system-title">The medium follows the story.</h2>
           </div>
-          <div className="story-system__map" aria-label="How a story becomes a world">
+          <div className="story-system__map" aria-label="How a story becomes a world" data-reveal="stagger">
             {storyProgression.map((item, index) => (
-              <article className="story-system__step" key={item.title}>
+              <article className="story-system__step" data-reveal-item key={item.title}>
                 <p className="text-label">0{index + 1}</p>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -115,27 +115,73 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="featured-world__media" aria-label="Rangers Legends connected story world media">
-            <figure className="world-object world-object--primary">
-              <img src={collectionHeroImage} alt={featuredWorld.media.world.alt} />
+          <div
+            className="featured-world__media"
+            aria-label="Rangers Legends connected story world media"
+            data-reveal="media-stagger"
+          >
+            <figure className="world-object world-object--primary" data-reveal-item>
+              <img
+                src={collectionHeroImage}
+                alt={featuredWorld.media.world.alt}
+                width="1200"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
               <figcaption className="text-label">{featuredWorld.media.world.label}</figcaption>
             </figure>
-            <figure className="world-object world-object--comic">
-              <img src={comicPageImage} alt={featuredWorld.media.story.alt} />
+            <figure className="world-object world-object--comic" data-reveal-item>
+              <img
+                src={comicPageImage}
+                alt={featuredWorld.media.story.alt}
+                width="480"
+                height="720"
+                loading="lazy"
+                decoding="async"
+              />
               <figcaption className="text-label">{featuredWorld.media.story.label}</figcaption>
             </figure>
-            <figure className="world-object world-object--interface">
-              <img src={interfaceImage} alt={featuredWorld.media.digital.alt} />
+            <figure className="world-object world-object--interface" data-reveal-item>
+              <img
+                src={interfaceImage}
+                alt={featuredWorld.media.digital.alt}
+                width="1200"
+                height="639"
+                loading="lazy"
+                decoding="async"
+              />
               <figcaption className="text-label">{featuredWorld.media.digital.label}</figcaption>
             </figure>
-            <figure className="world-object world-object--tee">
-              <img src={teeImage} alt={featuredWorld.media.apparel.alt} />
+            <figure className="world-object world-object--tee" data-reveal-item>
+              <img
+                src={teeImage}
+                alt={featuredWorld.media.apparel.alt}
+                width="900"
+                height="600"
+                loading="lazy"
+                decoding="async"
+              />
               <figcaption className="text-label">{featuredWorld.media.apparel.label}</figcaption>
             </figure>
-            <figure className="world-object world-object--cards">
+            <figure className="world-object world-object--cards" data-reveal-item>
               <div className="card-pair" aria-label="Collectible card front and back">
-                <img src={cardBackImage} alt={featuredWorld.media.collectibleBack.alt} />
-                <img src={cardFrontImage} alt={featuredWorld.media.collectibleFront.alt} />
+                <img
+                  src={cardBackImage}
+                  alt={featuredWorld.media.collectibleBack.alt}
+                  width="396"
+                  height="520"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <img
+                  src={cardFrontImage}
+                  alt={featuredWorld.media.collectibleFront.alt}
+                  width="385"
+                  height="520"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
               <figcaption className="text-label">{featuredWorld.media.collectibleFront.label}</figcaption>
             </figure>
@@ -167,9 +213,9 @@ export default function HomePage() {
             around it, layer by layer.
           </p>
         </div>
-        <div className="container-wide method-grid" aria-label="CreateWithTimi method">
+        <div className="container-wide method-grid" aria-label="CreateWithTimi method" data-reveal="stagger">
           {methodSteps.map((step) => (
-            <article className="method-step" key={step.number}>
+            <article className="method-step" data-reveal-item key={step.number}>
               <p className="method-step__number text-label">{step.number}</p>
               <h3>{step.title}</h3>
               <p>{step.body}</p>
@@ -190,7 +236,7 @@ export default function HomePage() {
         </div>
         <div className="container-wide offer-list">
           {offers.map((offer) => (
-            <article className="offer-row" key={offer.number}>
+            <article className="offer-row" data-reveal="rise" key={offer.number}>
               <p className="offer-row__number text-label">{offer.number} /</p>
               <div className="offer-row__content">
                 <h3>{offer.title}</h3>
