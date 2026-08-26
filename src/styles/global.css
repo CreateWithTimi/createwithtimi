@@ -2217,22 +2217,29 @@ select:focus-visible,
   }
 
   .world-object--comic {
-    width: min(78%, 24rem);
+    width: 100%;
+    justify-self: center;
   }
 
   .world-object--interface {
     width: min(100%, 36rem);
-    justify-self: end;
+    justify-self: center;
   }
 
   .world-object--tee {
     width: min(86%, 30rem);
-    justify-self: start;
+    justify-self: center;
   }
 
   .world-object--cards {
-    width: min(72%, 18rem);
-    justify-self: end;
+    width: min(78%, 20rem);
+    max-width: 100%;
+    justify-self: center;
+  }
+
+  .world-object--cards .card-pair {
+    width: 100%;
+    max-width: 100%;
   }
 
   .featured-world__system {
