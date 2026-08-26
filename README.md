@@ -92,6 +92,39 @@ Post-deploy preview validation:
 
 Favicon status: pending until an approved standalone favicon or identity asset exists.
 
+## Vercel Deployment
+
+The V1 site is a Vite + React Router SPA and is prepared for Vercel deployment through `vercel.json`.
+
+Project settings:
+
+- GitHub repository: `CreateWithTimi/createwithtimi`
+- Framework preset: Vite
+- Install command: `npm install`
+- Build command: `npm run build`
+- Output directory: `dist`
+
+First deployment:
+
+1. Import the GitHub repository into Vercel.
+2. Confirm the Vite framework preset, `npm run build`, and `dist` output directory.
+3. Deploy once without `VITE_SITE_URL` if the final stable production origin is not known yet.
+4. Copy the stable production URL from Vercel after the first deploy.
+5. Add `VITE_SITE_URL` in Vercel Project Settings -> Environment Variables.
+6. Apply it to Production.
+7. Redeploy so canonical URLs, `og:url`, absolute social-image URLs, and `sitemap.xml` use the production origin.
+
+Production verification:
+
+- Refresh `/`, `/work/rangers-legends`, `/start-a-project`, and an unknown route directly in the browser.
+- Confirm `/cwt-social-preview.png` and `/robots.txt` load directly.
+- Confirm `/sitemap.xml` exists after `VITE_SITE_URL` is configured and includes only the three public routes.
+- Submit a real `/start-a-project` Formspree test inquiry.
+- Validate social previews on WhatsApp, X, LinkedIn, and Discord.
+- Check canonical metadata, `og:url`, absolute social image URLs, and 404 `noindex, follow`.
+- Test `#work` and `#how-we-work` navigation from all routes.
+- Check mobile navigation and reduced-motion behavior.
+
 ## Source Structure
 
 ```text
