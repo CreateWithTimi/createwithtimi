@@ -19,7 +19,7 @@ function Arrow() {
 const mediaByExperience = {
   read: {
     src: comicPageImage,
-    alt: 'Comic page artwork from the Rangers Legends concept.',
+    alt: 'Comic page artwork from the Rangers Legends creative exploration.',
   },
   explore: {
     src: interfaceImage,
@@ -27,11 +27,11 @@ const mediaByExperience = {
   },
   share: {
     src: graphicChairmanImage,
-    alt: 'Rangers Legends Chairman graphic poster concept.',
+    alt: 'Rangers Legends Chairman graphic poster from the creative exploration.',
   },
   wear: {
     src: teeImage,
-    alt: 'Rangers Legends Chairman T-shirt concept board.',
+    alt: 'Rangers Legends Chairman T-shirt exploration board.',
   },
 };
 
@@ -85,6 +85,28 @@ export default function RangersLegendsCaseStudyPage() {
             />
             <figcaption className="text-label">World / Primary object</figcaption>
           </figure>
+        </div>
+      </section>
+
+      <section className="case-context site-section" aria-labelledby="case-context-title">
+        <div className="container-wide editorial-grid">
+          <p className="text-label section-kicker case-act-label">{caseStudy.context.eyebrow}</p>
+          <div className="case-copy flow">
+            <h2 id="case-context-title" className="visually-hidden">
+              {caseStudy.context.eyebrow}
+            </h2>
+            {caseStudy.context.body.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+          <dl className="case-credit-list">
+            {caseStudy.context.credits.map((credit) => (
+              <div key={credit.role}>
+                <dt className="text-label">{credit.role}</dt>
+                <dd>{credit.name}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 

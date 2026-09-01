@@ -117,7 +117,7 @@ export default function HomePage() {
 
           <div
             className="featured-world__media"
-            aria-label="Rangers Legends connected story world media"
+            aria-label="Rangers Legends connected creative study media"
             data-reveal="media-stagger"
           >
             <figure className="world-object world-object--primary" data-reveal-item>
@@ -188,7 +188,7 @@ export default function HomePage() {
           </div>
 
           <p className="featured-world__system text-label">
-            Not six random deliverables. One connected world.
+            Not six random deliverables. One connected creative system.
           </p>
 
           <ul className="media-categories" aria-label="Rangers Legends media categories">

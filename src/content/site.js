@@ -66,7 +66,7 @@ export const routeMetadata = {
   '/work/rangers-legends': {
     title: 'Rangers Legends Case Study — CreateWithTimi',
     description:
-      'A CreateWithTimi concept exploration showing how one football heritage story can become a connected story world across digital and physical experiences.',
+      'A creative study showing how CreateWithTimi developed a Rangers Legends direction introduced by NZAPI into a connected storytelling, digital and physical experience system.',
     robots: 'index, follow',
   },
   '/start-a-project': {

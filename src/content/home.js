@@ -26,11 +26,12 @@ export const storyProgression = [
 export const audienceOutcomes = ['Read', 'Watch', 'Explore', 'Share', 'Wear', 'Collect'];
 
 export const featuredWorld = {
-  eyebrow: 'Featured World / 001',
+  eyebrow: 'Creative Study / 001',
   title: 'Rangers Legends',
-  tagline: ['One legend.', 'An entire world.'],
-  body: 'A CreateWithTimi concept exploring how football heritage can become a connected story world across digital and physical experiences.',
-  safetyNote: 'Concept exploration. Not an official commission, partnership, endorsement or licensed project.',
+  tagline: ['One legend.', 'Many ways to experience the story.'],
+  body: 'Developed by CreateWithTimi from a Rangers Legends direction introduced by NZAPI, exploring how football heritage could expand across storytelling, digital experiences and physical products.',
+  safetyNote:
+    'Concept direction introduced by NZAPI. Creative development and experience exploration by CreateWithTimi. This is a speculative creative study and not an official Rangers International FC commission, endorsement or licensed project.',
   primaryCta: {
     label: 'Explore case study',
     href: '/work/rangers-legends',

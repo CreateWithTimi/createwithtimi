@@ -1252,6 +1252,7 @@ select:focus-visible,
 .case-status,
 .case-hero__media figcaption,
 .case-act-label,
+.case-credit-list dt,
 .case-strategy-move span,
 .case-ladder .text-label,
 .case-experience-strip .text-label,
@@ -1334,6 +1335,7 @@ select:focus-visible,
   margin-block-start: var(--space-xs);
 }
 
+.case-context,
 .case-opportunity,
 .case-expansion,
 .case-system,
@@ -1351,12 +1353,35 @@ select:focus-visible,
 }
 
 .case-opportunity .section-kicker,
+.case-context .section-kicker,
 .case-proves .section-kicker {
   grid-column: 1 / span 3;
 }
 
 .case-opportunity h2 {
   grid-column: 1 / span 7;
+}
+
+.case-context .case-copy {
+  grid-column: 4 / span 5;
+}
+
+.case-credit-list {
+  display: grid;
+  grid-column: 10 / span 3;
+  gap: var(--space-sm);
+  min-width: 0;
+  margin: 0;
+}
+
+.case-credit-list div {
+  padding-block-start: var(--space-sm);
+  border-block-start: var(--rule);
+}
+
+.case-credit-list dd {
+  margin-block-start: var(--space-2xs);
+  color: var(--color-ink);
 }
 
 .case-copy {
@@ -2132,9 +2157,11 @@ select:focus-visible,
   .home-cta__body,
   .case-hero__copy,
   .case-hero__media,
+  .case-context .section-kicker,
   .case-opportunity .section-kicker,
   .case-opportunity h2,
   .case-copy,
+  .case-credit-list,
   .case-idea__statement,
   .case-idea__body,
   .case-expansion__intro,

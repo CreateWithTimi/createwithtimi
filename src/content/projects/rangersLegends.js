@@ -5,13 +5,32 @@ export const rangersLegendsCaseStudy = {
     href: '/#work',
   },
   intro: {
-    eyebrow: 'Story World / 001',
+    eyebrow: 'Creative Study / 001',
     title: ['Rangers', 'Legends'],
-    statement: ['One legend.', 'An entire world.'],
-    body: 'A CreateWithTimi concept exploring how football heritage can move beyond the archive and become something people can read, watch, explore, wear and collect.',
+    statement: ['One legend.', 'Many ways to experience the story.'],
+    body: 'A creative exploration developed by CreateWithTimi from the Rangers Legends direction introduced by NZAPI, exploring how football heritage could expand across storytelling, digital experiences and physical products.',
     taxonomy: ['Culture', 'Football', 'Storytelling', 'Interaction', 'Physical experience'],
-    status: 'Independent concept exploration',
+    status:
+      'Concept direction introduced by NZAPI. Creative development and experience exploration by CreateWithTimi. This is a speculative creative study and not an official Rangers International FC commission, endorsement or licensed project.',
     cta: 'Experience the live world',
+  },
+  context: {
+    eyebrow: 'Project Context',
+    body: [
+      "Rangers Legends began from a direction shared by NZAPI: exploring the legacy of Rangers International FC legends, beginning with Christian 'Chairman' Chukwu.",
+      "CreateWithTimi developed that starting point into a broader creative exploration across storytelling, digital experience, visual systems, apparel and collectibles.",
+      "This case study documents CWT's creative development and execution around that direction and does not claim ownership of the Rangers Legends concept, Rangers International FC identity, or the underlying historical figures and stories.",
+    ],
+    credits: [
+      {
+        role: 'Concept Direction',
+        name: 'NZAPI',
+      },
+      {
+        role: 'Creative Development & Experience Design',
+        name: 'CreateWithTimi',
+      },
+    ],
   },
   opportunity: {
     eyebrow: 'Act 02 / The Opportunity',
@@ -22,16 +41,16 @@ export const rangersLegendsCaseStudy = {
     ],
   },
   idea: {
-    eyebrow: 'Act 03 / The Idea',
-    title: ["Don't just", 'tell the story.', 'Build the world', 'around it.'],
-    body: 'CreateWithTimi treated Christian Chukwu / Chairman not as a single piece of content, but as the doorway into a connected system of story, interaction, graphics, physical objects and future chapters.',
+    eyebrow: 'Act 03 / The Creative Response',
+    title: ["Don't just", 'tell the story.', 'Build experiences', 'around it.'],
+    body: "Starting from the Rangers Legends direction introduced by NZAPI, CreateWithTimi explored Christian Chukwu / 'Chairman' not as a single piece of content, but as the starting point for a connected system of storytelling, interaction, graphics, physical objects and future chapters.",
     move: {
       from: 'One legend',
       to: 'Multiple ways to experience the story',
     },
   },
   expansion: {
-    eyebrow: 'Act 04 / From Story to World',
+    eyebrow: "Act 04 / CWT's Creative Development",
     title: ['One story', 'becomes the', 'system.'],
     stages: [
       {
@@ -116,7 +135,7 @@ export const rangersLegendsCaseStudy = {
     title: ['The output', "isn't the point.", 'The system is.'],
     body: [
       'A comic can tell the story. An interface can let people explore it. A film direction can give it motion. Apparel can let people wear it. Collectibles can let people keep it. Graphics can help the world travel.',
-      'The value is that all of those experiences originate from one coherent story world.',
+      "The value of the exploration wasn't any single output. It was seeing how an initial creative direction could grow into a connected system — with each expression reinforcing the others across story, digital experience, apparel and collectibles.",
       'The same thinking can apply wherever there is a story, community, identity or IP worth building around.',
     ],
     categories: ['Sport', 'Music', 'Culture', 'Brands', 'Hospitality', 'Characters / Original IP'],
@@ -124,7 +143,7 @@ export const rangersLegendsCaseStudy = {
   liveBridge: {
     eyebrow: 'Act 07 / Experience The World',
     title: ["Don't just", 'read the', 'case study.'],
-    body: 'Step inside the Rangers Legends concept world.',
+    body: 'Step inside the Rangers Legends creative exploration.',
     cta: 'Experience Rangers Legends',
   },
   nextCta: {
