@@ -12,6 +12,7 @@ import {
   homeHero,
   methodSteps,
   offers,
+  selectedWork,
   storyProgression,
 } from '../content/home.js';
 
@@ -196,6 +197,41 @@ export default function HomePage() {
               <li key={item}>{item}</li>
             ))}
           </ul>
+
+          <div className="selected-work-index" aria-labelledby="selected-work-title">
+            <div className="selected-work-index__intro">
+              <h3 id="selected-work-title">{selectedWork.eyebrow}</h3>
+              <p>{selectedWork.body}</p>
+            </div>
+            <div className="selected-work-list">
+              {selectedWork.items.map((item) => {
+                const content = (
+                  <>
+                    <p className="selected-work-row__number text-label">{item.number}</p>
+                    <div className="selected-work-row__main">
+                      <h4>{item.title}</h4>
+                      <p>{item.role}</p>
+                    </div>
+                    <div className="selected-work-row__meta">
+                      <p className="text-label">{item.type}</p>
+                      <p className="text-label">{item.wayIn}</p>
+                    </div>
+                    {item.href ? <span aria-hidden="true">→</span> : null}
+                  </>
+                );
+
+                return item.href ? (
+                  <Link className="selected-work-row" to={item.href} key={item.title}>
+                    {content}
+                  </Link>
+                ) : (
+                  <article className="selected-work-row selected-work-row--static" key={item.title}>
+                    {content}
+                  </article>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 

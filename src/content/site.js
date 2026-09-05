@@ -35,7 +35,7 @@ const normalizeSiteUrl = (value) => {
 const socialImagePath = '/cwt-social-preview.png';
 const siteUrl = normalizeSiteUrl(import.meta.env.VITE_SITE_URL);
 
-export const publicRoutes = ['/', '/work/rangers-legends', '/start-a-project'];
+export const publicRoutes = ['/', '/work/rangers-legends', '/work/omniretail', '/start-a-project'];
 
 export const getAbsoluteUrl = (path = '/') => {
   if (!siteUrl) {
@@ -67,6 +67,12 @@ export const routeMetadata = {
     title: 'Rangers Legends Case Study — CreateWithTimi',
     description:
       'A creative study showing how CreateWithTimi developed a Rangers Legends direction introduced by NZAPI into a connected storytelling, digital and physical experience system.',
+    robots: 'index, follow',
+  },
+  '/work/omniretail': {
+    title: 'OmniRetail — The World Behind the Shelf | CWT Creative Study 002',
+    description:
+      'CreateWithTimi Studio explores the human world behind OmniRetail’s commerce network — and how an invisible system of people, products and movement could become a connected storytelling world.',
     robots: 'index, follow',
   },
   '/start-a-project': {

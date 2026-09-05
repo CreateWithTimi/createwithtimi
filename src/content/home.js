@@ -68,6 +68,43 @@ export const featuredWorld = {
   },
 };
 
+export const selectedWork = {
+  eyebrow: 'Selected Work',
+  body: 'A small set of studies and story projects showing how CWT moves from one story, to a discovered opportunity, to a connected world.',
+  items: [
+    {
+      number: '001',
+      title: 'Rangers Legends',
+      type: 'Creative Study / 001',
+      wayIn: 'Story World',
+      role: 'Connected ecosystem and world-building thinking.',
+      href: '/work/rangers-legends',
+    },
+    {
+      number: '002',
+      title: 'OmniRetail',
+      type: 'Creative Study / 002',
+      wayIn: 'World Sprint Exploration',
+      role: 'An independent creative exploration of the invisible network behind everyday African retail.',
+      href: '/work/omniretail',
+    },
+    {
+      number: '003',
+      title: 'Afri Bistro',
+      type: 'Startup Stories / 003',
+      wayIn: 'Story Project',
+      role: 'Cinematic storytelling using a real restaurant, chef and environment as source material.',
+    },
+    {
+      number: '004',
+      title: 'Peeps & Places',
+      type: 'Startup Stories / 002',
+      wayIn: 'Story Project',
+      role: 'Product storytelling where people and human interaction become the hero.',
+    },
+  ],
+};
+
 export const methodSteps = [
   {
     number: '01',

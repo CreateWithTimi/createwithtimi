@@ -6,6 +6,7 @@ import './styles/global.css';
 
 const HomePage = lazy(() => import('./pages/HomePage.jsx'));
 const RangersLegendsCaseStudyPage = lazy(() => import('./pages/RangersLegendsCaseStudyPage.jsx'));
+const OmniRetailCaseStudyPage = lazy(() => import('./pages/OmniRetailCaseStudyPage.jsx'));
 const StartAProjectPage = lazy(() => import('./pages/StartAProjectPage.jsx'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
 
@@ -36,6 +37,14 @@ const router = createBrowserRouter([
         element: (
           <RouteView>
             <RangersLegendsCaseStudyPage />
+          </RouteView>
+        ),
+      },
+      {
+        path: 'work/omniretail',
+        element: (
+          <RouteView>
+            <OmniRetailCaseStudyPage />
           </RouteView>
         ),
       },

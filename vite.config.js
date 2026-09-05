@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
-const publicRoutes = ['/', '/work/rangers-legends', '/start-a-project'];
+const publicRoutes = ['/', '/work/rangers-legends', '/work/omniretail', '/start-a-project'];
 const socialImagePath = '/cwt-social-preview.png';
 
 const normalizeSiteUrl = (value) => {
