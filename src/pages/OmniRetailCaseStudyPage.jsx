@@ -1,31 +1,61 @@
 import { Link } from 'react-router-dom';
 import heroImage from '../assets/optimized/omniretail/omni-page01-hero-1400.jpg';
+import heroImage1024 from '../assets/optimized/omniretail/omni-page01-hero-1024.jpg';
+import heroImage640 from '../assets/optimized/omniretail/omni-page01-hero-640.jpg';
 import omniLogo from '../assets/omniretail/originals/omni-retail-logo.png';
 import someoneAsksImage from '../assets/optimized/omniretail/omni-page02-someone-asks-1100.jpg';
+import someoneAsksImage1024 from '../assets/optimized/omniretail/omni-page02-someone-asks-1024.jpg';
+import someoneAsksImage640 from '../assets/optimized/omniretail/omni-page02-someone-asks-640.jpg';
 import someoneAvailableImage from '../assets/optimized/omniretail/omni-page02-someone-has-to-make-it-available-1100.jpg';
+import someoneAvailableImage1024 from '../assets/optimized/omniretail/omni-page02-someone-has-to-make-it-available-1024.jpg';
+import someoneAvailableImage640 from '../assets/optimized/omniretail/omni-page02-someone-has-to-make-it-available-640.jpg';
 import someoneMoveImage from '../assets/optimized/omniretail/omni-page02-someone-has-to-move-it-1100.jpg';
+import someoneMoveImage1024 from '../assets/optimized/omniretail/omni-page02-someone-has-to-move-it-1024.jpg';
+import someoneMoveImage640 from '../assets/optimized/omniretail/omni-page02-someone-has-to-move-it-640.jpg';
 import someoneStockImage from '../assets/optimized/omniretail/omni-page02-someone-has-to-stock-it-1100.jpg';
+import someoneStockImage1024 from '../assets/optimized/omniretail/omni-page02-someone-has-to-stock-it-1024.jpg';
+import someoneStockImage640 from '../assets/optimized/omniretail/omni-page02-someone-has-to-stock-it-640.jpg';
 import someoneNeedsImage from '../assets/optimized/omniretail/omni-page02-someone-needs-it-1100.jpg';
+import someoneNeedsImage1024 from '../assets/optimized/omniretail/omni-page02-someone-needs-it-1024.jpg';
+import someoneNeedsImage640 from '../assets/optimized/omniretail/omni-page02-someone-needs-it-640.jpg';
 import opportunityImage from '../assets/optimized/omniretail/omni-page03-opportunity-1300.jpg';
+import opportunityImage1024 from '../assets/optimized/omniretail/omni-page03-opportunity-1024.jpg';
+import opportunityImage640 from '../assets/optimized/omniretail/omni-page03-opportunity-640.jpg';
 import defineImage from '../assets/optimized/omniretail/omni-page04-define-1100.jpg';
+import defineImage1024 from '../assets/optimized/omniretail/omni-page04-define-1024.jpg';
+import defineImage640 from '../assets/optimized/omniretail/omni-page04-define-640.jpg';
 import discoveryImage from '../assets/optimized/omniretail/omni-page04-discovery-1100.jpg';
+import discoveryImage1024 from '../assets/optimized/omniretail/omni-page04-discovery-1024.jpg';
+import discoveryImage640 from '../assets/optimized/omniretail/omni-page04-discovery-640.jpg';
 import prototypeImage from '../assets/optimized/omniretail/omni-page04-prototype-1100.jpg';
+import prototypeImage1024 from '../assets/optimized/omniretail/omni-page04-prototype-1024.jpg';
+import prototypeImage640 from '../assets/optimized/omniretail/omni-page04-prototype-640.jpg';
 import invitationImage from '../assets/optimized/omniretail/omni-page05-invitation-1400.jpg';
+import invitationImage1024 from '../assets/optimized/omniretail/omni-page05-invitation-1024.jpg';
+import invitationImage640 from '../assets/optimized/omniretail/omni-page05-invitation-640.jpg';
 import { omniRetailStudy } from '../content/projects/omniRetail.js';
 
 const worldImages = {
-  needs: someoneNeedsImage,
-  stock: someoneStockImage,
-  move: someoneMoveImage,
-  available: someoneAvailableImage,
-  asks: someoneAsksImage,
+  needs: { src: someoneNeedsImage, src1024: someoneNeedsImage1024, src640: someoneNeedsImage640, width: 1100 },
+  stock: { src: someoneStockImage, src1024: someoneStockImage1024, src640: someoneStockImage640, width: 1100 },
+  move: { src: someoneMoveImage, src1024: someoneMoveImage1024, src640: someoneMoveImage640, width: 1100 },
+  available: { src: someoneAvailableImage, src1024: someoneAvailableImage1024, src640: someoneAvailableImage640, width: 1100 },
+  asks: { src: someoneAsksImage, src1024: someoneAsksImage1024, src640: someoneAsksImage640, width: 1100 },
 };
 
 const wayInImages = {
-  discovery: discoveryImage,
-  define: defineImage,
-  prototype: prototypeImage,
+  discovery: { src: discoveryImage, src1024: discoveryImage1024, src640: discoveryImage640, width: 1100 },
+  define: { src: defineImage, src1024: defineImage1024, src640: defineImage640, width: 1100 },
+  prototype: { src: prototypeImage, src1024: prototypeImage1024, src640: prototypeImage640, width: 1100 },
 };
+
+const heroMedia = { src: heroImage, src1024: heroImage1024, src640: heroImage640, width: 1400 };
+const opportunityMedia = { src: opportunityImage, src1024: opportunityImage1024, src640: opportunityImage640, width: 1300 };
+const invitationMedia = { src: invitationImage, src1024: invitationImage1024, src640: invitationImage640, width: 1400 };
+
+function responsiveSrcSet(image) {
+  return `${image.src640} 640w, ${image.src1024} 1024w, ${image.src} ${image.width}w`;
+}
 
 function Arrow() {
   return <span aria-hidden="true">→</span>;
@@ -73,11 +103,15 @@ export default function OmniRetailCaseStudyPage() {
 
           <figure className="omni-hero__media" data-reveal="media">
             <img
-              src={heroImage}
+              src={heroMedia.src}
+              srcSet={responsiveSrcSet(heroMedia)}
+              sizes="(max-width: 760px) calc(100vw - 2rem), 50vw"
               alt="Cinematic neighbourhood shop scene for the OmniRetail creative study."
               width="1400"
               height="788"
+              loading="eager"
               decoding="async"
+              fetchPriority="high"
             />
             <figcaption className="text-label">Observation / Neighbourhood shelf</figcaption>
           </figure>
@@ -102,7 +136,9 @@ export default function OmniRetailCaseStudyPage() {
             <article className="omni-beat" data-reveal-item key={beat.number}>
               <figure className="omni-beat__media">
                 <img
-                  src={worldImages[beat.image]}
+                  src={worldImages[beat.image].src}
+                  srcSet={responsiveSrcSet(worldImages[beat.image])}
+                  sizes="(max-width: 760px) calc(100vw - 2rem), 58vw"
                   alt={beat.alt}
                   width="1100"
                   height="619"
@@ -143,7 +179,9 @@ export default function OmniRetailCaseStudyPage() {
 
           <figure className="omni-opportunity__media" data-reveal="media">
             <img
-              src={opportunityImage}
+              src={opportunityMedia.src}
+              srcSet={responsiveSrcSet(opportunityMedia)}
+              sizes="(max-width: 760px) calc(100vw - 2rem), 50vw"
               alt="Human network and creative expressions visual for the OmniRetail study."
               width="1300"
               height="866"
@@ -187,7 +225,9 @@ export default function OmniRetailCaseStudyPage() {
             <article className="omni-sprint-step" data-reveal-item key={stage.number}>
               <figure>
                 <img
-                  src={wayInImages[stage.image]}
+                  src={wayInImages[stage.image].src}
+                  srcSet={responsiveSrcSet(wayInImages[stage.image])}
+                  sizes="(max-width: 760px) calc(100vw - 2rem), 31vw"
                   alt={stage.alt}
                   width="1100"
                   height="733"
@@ -220,7 +260,9 @@ export default function OmniRetailCaseStudyPage() {
         <div className="container-wide editorial-grid omni-invitation__grid">
           <figure className="omni-invitation__media" data-reveal="media">
             <img
-              src={invitationImage}
+              src={invitationMedia.src}
+              srcSet={responsiveSrcSet(invitationMedia)}
+              sizes="(max-width: 760px) calc(100vw - 2rem), 58vw"
               alt="Quiet neighbourhood shop at dusk for the OmniRetail creative study."
               width="1400"
               height="788"
