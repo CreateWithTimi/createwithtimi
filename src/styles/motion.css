@@ -41,3 +41,35 @@
   .motion-steps { grid-template-columns: minmax(0, 1fr); }
   .motion-hero h1, .motion-detail-hero h1 { font-size: clamp(3rem, 13vw, 4.5rem); }
 }
+
+.motion-tutorials { border-block-start: var(--rule); }
+.motion-tutorials__intro { max-width: 48rem; margin-top: var(--space-lg); }
+.motion-tutorials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+  margin-block: var(--space-xl);
+}
+.motion-tutorial {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  min-width: 0;
+  padding-block-end: var(--space-lg);
+  border-block-end: var(--rule);
+}
+.motion-tutorial h3 { font-family: var(--font-body); font-size: var(--type-heading); line-height: 1.2; }
+.motion-tutorial > .text-link { margin-top: auto; }
+.motion-tutorial__thumbnail {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: var(--rule);
+}
+.motion-tutorial__thumbnail img { display: block; width: 100%; height: auto; }
+.motion-tutorial__fallback { padding: var(--space-md); font-size: var(--type-small); text-align: center; }
+@media (max-width: 760px) {
+  .motion-tutorials__grid { grid-template-columns: minmax(0, 1fr); }
+}
