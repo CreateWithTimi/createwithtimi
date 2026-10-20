@@ -1,10 +1,14 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { startProject } from '../content/startProject.js';
+import { Link, useLocation } from 'react-router-dom';
+import { startProject as studioProject } from '../content/startProject.js';
 
-const formspreeEndpoint = startProject.delivery.endpoint;
+import { buildInquiryPayload, getInquiryContext, motionEnquiryTypes, validateForm } from '../lib/inquiry.js';
+import '../styles/motion.css';
+
+const formspreeEndpoint = studioProject.delivery.endpoint;
 
 const initialFormState = {
+  enquiryType: '',
   around: '',
   bringing: '',
   destinations: [],
@@ -21,55 +25,6 @@ function slugify(value) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
-}
-
-function validateForm(formState) {
-  const nextErrors = {};
-
-  if (!formState.around) {
-    nextErrors.around = 'Choose what we are building around.';
-  }
-
-  if (!formState.bringing) {
-    nextErrors.bringing = 'Choose what you are bringing.';
-  }
-
-  if (formState.destinations.length === 0) {
-    nextErrors.destinations = 'Choose at least one possible direction.';
-  }
-
-  if (!formState.name.trim()) {
-    nextErrors.name = 'Enter your name.';
-  }
-
-  if (!formState.email.trim()) {
-    nextErrors.email = 'Enter your email address.';
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email.trim())) {
-    nextErrors.email = 'Enter a valid email address.';
-  }
-
-  if (!formState.description.trim()) {
-    nextErrors.description = 'Tell us a little about the project.';
-  }
-
-  return nextErrors;
-}
-
-function buildInquiryPayload(formState, honeypotValue) {
-  return {
-    'What are we building around?': formState.around,
-    'What are you bringing?': formState.bringing,
-    'Where could it go?': formState.destinations.join(', '),
-    'Your name': formState.name.trim(),
-    'Email address': formState.email.trim(),
-    'Organization / brand': formState.organization.trim() || 'Not provided',
-    'Tell us about your project': formState.description.trim(),
-    'Project timeline': formState.timeline || 'Not provided',
-    'Budget context': formState.budget || 'Not provided',
-    email: formState.email.trim(),
-    _replyto: formState.email.trim(),
-    _gotcha: honeypotValue,
-  };
 }
 
 function Arrow() {
@@ -110,6 +65,20 @@ function OptionControl({ option, type, name, checked, onChange, required = false
 }
 
 export default function StartAProjectPage() {
+  const { search } = useLocation();
+  const context = getInquiryContext(search);
+  return <InquiryForm key={context.isMotion ? `motion:${context.project ?? ''}` : 'studio'} context={context} />;
+}
+
+function InquiryForm({ context }) {
+  const { isMotion } = context;
+  const startProject = isMotion ? {
+    ...studioProject,
+    hero: { ...studioProject.hero, eyebrow: 'Motion / Enquiry', title: ['Let’s talk', 'motion.'], body: 'Tell me about your Rive brief, product interaction, character animation, contract, or remote-job opportunity.', reassurance: { title: 'A short introduction is enough.', body: 'Share the project or role, what you need, and any timing you have in mind.' } },
+    steps: [],
+    details: { ...studioProject.details, number: '02', question: ['The project', 'or opportunity.'], hint: 'Name, email, and a short description are required. Everything else is optional.', fields: { ...studioProject.details.fields, description: 'Project or role description', timeline: 'Timeline / start date (optional)', budget: 'Budget / compensation (optional)' } },
+    submit: { ...studioProject.submit, title: ['Let’s talk', 'motion.'], action: 'Send enquiry', submitting: 'Sending enquiry…', success: { eyebrow: 'Enquiry received.', title: ['Thanks for', 'getting in touch.'], body: 'Your enquiry has been sent. We’ll continue the conversation by email.', href: '/motion', cta: 'Back to Motion' } },
+  } : studioProject;
   const [formState, setFormState] = useState(initialFormState);
   const [errors, setErrors] = useState({});
   const [submitStatus, setSubmitStatus] = useState('idle');
@@ -150,7 +119,7 @@ export default function StartAProjectPage() {
       return;
     }
 
-    const nextErrors = validateForm(formState);
+    const nextErrors = validateForm(formState, isMotion);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
@@ -170,7 +139,7 @@ export default function StartAProjectPage() {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(buildInquiryPayload(formState, honeypotRef.current?.value || '')),
+        body: JSON.stringify(buildInquiryPayload(formState, honeypotRef.current?.value || '', context)),
       });
 
       if (!response.ok) {
@@ -240,7 +209,7 @@ export default function StartAProjectPage() {
             <div className="project-inquiry__field" aria-hidden="true" />
           </div>
 
-          <form className="project-form" noValidate onSubmit={handleSubmit}>
+          <form className={`project-form${isMotion ? ' project-form--motion' : ''}`} noValidate onSubmit={handleSubmit}>
             <div className="project-honeypot" aria-hidden="true">
               <label htmlFor="project-company-website">Company website</label>
               <input
@@ -267,6 +236,19 @@ export default function StartAProjectPage() {
             ) : null}
 
             <div className="project-form__grid">
+              {isMotion && <section className="project-step" aria-labelledby="enquiry-heading">
+                <StepHeading number="01" question={['What brings', 'you here?']} id="enquiry-heading" />
+                <div className="project-field">
+                  <label htmlFor="enquiryType">Enquiry type (required)</label>
+                  <select id="enquiryType" value={formState.enquiryType} required aria-invalid={Boolean(errors.enquiryType)} aria-describedby={errors.enquiryType ? 'enquiryType-error' : undefined} onChange={event => updateField('enquiryType', event.target.value)}>
+                    <option value="">Choose an enquiry type</option>
+                    {motionEnquiryTypes.map(type => <option key={type}>{type}</option>)}
+                  </select>
+                  {errors.enquiryType && <p className="project-field-error" id="enquiryType-error">{errors.enquiryType}</p>}
+                </div>
+                {context.project && <p className="project-step__hint">Related work: Drag to Cart</p>}
+                <p className="project-step__hint">For wider studio projects, <Link to="/start-a-project">use the studio enquiry form</Link>.</p>
+              </section>}
               {startProject.steps.map((step) => {
                 const legendId = `${step.id}-legend`;
                 const hintId = `${step.id}-hint`;
@@ -341,7 +323,7 @@ export default function StartAProjectPage() {
 
                 <div className="project-details-grid">
                   <div className="project-field">
-                    <label className="visually-hidden" htmlFor="name">
+                    <label className={isMotion ? undefined : "visually-hidden"} htmlFor="name">
                       {startProject.details.fields.name}
                     </label>
                     <input
@@ -364,7 +346,7 @@ export default function StartAProjectPage() {
                   </div>
 
                   <div className="project-field">
-                    <label className="visually-hidden" htmlFor="email">
+                    <label className={isMotion ? undefined : "visually-hidden"} htmlFor="email">
                       {startProject.details.fields.email}
                     </label>
                     <input
@@ -387,7 +369,7 @@ export default function StartAProjectPage() {
                   </div>
 
                   <div className="project-field">
-                    <label className="visually-hidden" htmlFor="organization">
+                    <label className={isMotion ? undefined : "visually-hidden"} htmlFor="organization">
                       {startProject.details.fields.organization} optional
                     </label>
                     <input
@@ -402,7 +384,7 @@ export default function StartAProjectPage() {
                   </div>
 
                   <div className="project-field project-field--full">
-                    <label className="visually-hidden" htmlFor="description">
+                    <label className={isMotion ? undefined : "visually-hidden"} htmlFor="description">
                       {startProject.details.fields.description}
                     </label>
                     <textarea
@@ -424,7 +406,7 @@ export default function StartAProjectPage() {
                   </div>
 
                   <div className="project-field">
-                    <label className="visually-hidden" htmlFor="timeline">
+                    <label className={isMotion ? undefined : "visually-hidden"} htmlFor="timeline">
                       {startProject.details.fields.timeline}
                     </label>
                     <select
@@ -443,10 +425,10 @@ export default function StartAProjectPage() {
                   </div>
 
                   <div className="project-field">
-                    <label className="visually-hidden" htmlFor="budget">
+                    <label className={isMotion ? undefined : "visually-hidden"} htmlFor="budget">
                       {startProject.details.fields.budget}
                     </label>
-                    <select
+                    {isMotion ? <input id="budget" name="budget" value={formState.budget} placeholder="Optional budget or compensation context" onChange={event => updateField('budget', event.target.value)} /> : <select
                       id="budget"
                       name="budget"
                       value={formState.budget}
@@ -454,11 +436,9 @@ export default function StartAProjectPage() {
                     >
                       <option value="">{startProject.details.fields.budget}</option>
                       {startProject.details.budgetChoices.map((choice) => (
-                        <option value={choice} key={choice}>
-                          {choice}
-                        </option>
+                        <option value={choice} key={choice}>{choice}</option>
                       ))}
-                    </select>
+                    </select>}
                   </div>
                 </div>
 
@@ -482,7 +462,7 @@ export default function StartAProjectPage() {
                     )}
                   </button>
                   <p className="project-submit__note">
-                    Inquiries are delivered through Formspree for V1.
+                    Prefer email? <a className="motion-email" href={`mailto:${studioProject.delivery.recipient}`}>{studioProject.delivery.recipient}</a>
                   </p>
                   <p className="visually-hidden" role="status" aria-live="polite">
                     {submitStatus === 'submitting' ? startProject.submit.submitting : ''}

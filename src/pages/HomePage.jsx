@@ -1,3 +1,4 @@
+import '../styles/motion.css';
 import { Link } from 'react-router-dom';
 import cardBackImage from '../assets/optimized/c01-the-legend-back-520.jpg';
 import cardFrontImage from '../assets/optimized/c01-the-legend-front-520.jpg';
@@ -232,6 +233,13 @@ export default function HomePage() {
               })}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="motion-home site-section" aria-labelledby="home-motion-title">
+        <div className="container-wide editorial-grid motion-split">
+          <div><p className="text-label section-kicker">Motion / A CWT capability</p><h2 id="home-motion-title">Stories move.<br />So can the experience.</h2></div>
+          <div className="motion-copy"><p>Explore interactive motion through Rive. Start with Drag to Cart, a personal shopping interaction experiment.</p><Link className="text-link" to="/motion">Explore Motion <span aria-hidden="true">→</span></Link></div>
         </div>
       </section>
 

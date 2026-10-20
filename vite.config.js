@@ -1,7 +1,8 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import { publishedMotionProjects } from './src/content/motion.js';
 
-const publicRoutes = ['/', '/work/rangers-legends', '/work/omniretail', '/start-a-project'];
+const publicRoutes = ['/', '/work/rangers-legends', '/work/omniretail', '/start-a-project', '/motion', ...publishedMotionProjects.map(project => `/motion/${project.slug}`)];
 const socialImagePath = '/cwt-social-preview.png';
 
 const normalizeSiteUrl = (value) => {

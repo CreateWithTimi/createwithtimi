@@ -1,9 +1,13 @@
+import { publishedMotionProjects } from './motion.js';
 export const siteNavigation = [
   {
     label: 'Work',
     href: '/#work',
     sectionId: 'work',
     kind: 'section',
+  },
+  {
+    label: 'Motion', href: '/motion', kind: 'route',
   },
   {
     label: 'How We Work',
@@ -35,7 +39,7 @@ const normalizeSiteUrl = (value) => {
 const socialImagePath = '/cwt-social-preview.png';
 const siteUrl = normalizeSiteUrl(import.meta.env.VITE_SITE_URL);
 
-export const publicRoutes = ['/', '/work/rangers-legends', '/work/omniretail', '/start-a-project'];
+export const publicRoutes = ['/', '/work/rangers-legends', '/work/omniretail', '/start-a-project', '/motion', ...publishedMotionProjects.map(project => `/motion/${project.slug}`)];
 
 export const getAbsoluteUrl = (path = '/') => {
   if (!siteUrl) {
@@ -58,6 +62,8 @@ export const siteMeta = {
 };
 
 export const routeMetadata = {
+  '/motion': { title: 'Interactive Motion & Rive — CreateWithTimi', description: 'Interactive motion by Timi, founder of CWT. Explore Rive experiments, implementation notes, and freelance, contract or remote opportunities.', robots: 'index, follow' },
+  ...Object.fromEntries(publishedMotionProjects.map(project => [`/motion/${project.slug}`, { title: `${project.title} — CreateWithTimi`, description: project.description, robots: 'index, follow' }])),
   '/': {
     title: siteMeta.title,
     description: siteMeta.description,

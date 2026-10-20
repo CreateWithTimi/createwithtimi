@@ -13,7 +13,7 @@ const focusableSelector = [
 
 function getNavigationCurrentValue(item, location) {
   if (item.kind === 'route') {
-    return location.pathname === item.href ? 'page' : undefined;
+    return (location.pathname === item.href || (item.href === '/motion' && location.pathname.startsWith('/motion/'))) ? 'page' : undefined;
   }
 
   return location.pathname === '/' && location.hash === `#${item.sectionId}`
@@ -131,7 +131,7 @@ export default function SiteHeader() {
       </button>
 
       {isMenuOpen ? (
-        <div className="mobile-menu" id={menuId} ref={panelRef} role="dialog" aria-modal="true">
+        <div className="mobile-menu" id={menuId} ref={panelRef} role="dialog" aria-modal="true" aria-label="Navigation menu">
           <div className="mobile-menu__bar">
             <Link
               className="wordmark-compact"

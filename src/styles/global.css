@@ -3228,3 +3228,11 @@ select:focus-visible,
     transform: none;
   }
 }
+
+/* Give the story sequence its own row before the mobile recomposition. */
+@media (min-width: 761px) and (max-width: 1024px) {
+  .story-system__intro,
+  .story-system__map {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 export default function RevealRuntime() {
-  const observedElementsRef = useRef(new WeakSet());
 
   useEffect(() => {
+    const observedElements = new WeakSet();
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
@@ -31,11 +31,11 @@ export default function RevealRuntime() {
 
     const observeRevealElements = () => {
       document.querySelectorAll('[data-reveal]').forEach((element) => {
-        if (observedElementsRef.current.has(element)) {
+        if (observedElements.has(element)) {
           return;
         }
 
-        observedElementsRef.current.add(element);
+        observedElements.add(element);
         observer.observe(element);
       });
     };
